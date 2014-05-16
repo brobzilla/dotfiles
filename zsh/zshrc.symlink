@@ -85,20 +85,3 @@ do
 done
 
 unset config_files
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/rkennedy/bin/haste-client/bin/:/home/rkennedy/bin/"
-# export MANPATH="/usr/local/man:$MANPATH"
-
-export HASTE_SERVER=http://hastebin.videon-central.net
-# # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
