@@ -1,4 +1,527 @@
-syntax on
+"File: .vimrc
 
-" Wrap gitcommit file types at the appropriate length
-filetype indent plugin on
+source $VIMRUNTIME/vimrc_example.vim
+" Set 256 color
+set t_Co=256
+
+" Setup pathogen
+call pathogen#infect()
+""Pathogen recommended these bug going to skip for now
+syntax on
+filetype plugin indent on
+
+"** Settings
+if has("gui_running")
+  set guioptions-=T
+endif
+set laststatus=2 "keeps status line up
+set winminheight=0 " allows me to shirnk the window to no size
+if (version >= 600 )
+  " allows me to shrink the window such that all that is shown is the status 
+  " line
+  set winminheight=0
+endif
+
+syntax enable
+"set background=dark
+"colorscheme solarized
+"colorscheme robLight
+
+
+"set guifont=Bitstream\ Vera\ Sans\ Mono\ 8
+
+"set incsearch " while typing a search vim shows me the next match.
+
+set nocompatible " Don't be compatible with vi
+
+"autocmd CursorMoved,CusorMoviedI * call s:Cursor_Moved()
+
+"let g:last_pos=0
+
+" Number of spaces to use for an indent.
+" This will affect Ctrl-T and 'autoindent'.
+" Python: 4 spaces
+" C: 4 spaces
+" Java: 4 spaces
+au BufRead,BufNewFile *.py,*.pyw set shiftwidth=4
+au BufRead,BufNewFile *.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java set shiftwidth=4
+
+
+" Number of spaces that a pre-existing tab is equal to.
+" For that amount of space used for a new tab use shiftwidth 
+" Python: 4 spaces
+" C: 4 spaces
+" Java: 4 spaces
+au BufRead,BufNewFile *.py,*.pyw set tabstop=4
+au BufRead,BufNewFile *.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java set tabstop=4
+
+" Replace tabs with the equivialant number of spaces.
+" Also have an autocmd for Makefiles since they require hard tabs
+" Python: yes
+" C: yes
+" Java: yes
+" Makefile: no
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java set expandtab
+au BufRead,BufNewFile Makefile*,*.mk set noexpandtab
+
+"Use the below hightlight group when displaying bad whitespace is desired
+highlight BadWhitespace ctermbg=red guibg=red
+
+"Display tabs at the beginning of a line in python mode as bad
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java match BadWhitespace /^\t\+/
+"Display whitespace at end of lines as bad 
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java match BadWhitespace /\s\+$/
+
+au BufRead,BufNewFile *.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+
+filetype indent on
+set autoindent
+
+set nobackup
+
+" Turns off the annoying bell.
+set vb t_vb="
+
+" Emacs users are probably used to this. Whenever you type a '[({', it will
+" show you the match
+set showmatch
+
+"Vim will show you as muhc of the last line as possible.
+set display=lastline
+
+" Shows the command as you type
+set showcmd
+
+" Kinda hardcoded for player team.
+set tags+=/home/rkennedy/xorn/player/tags
+set tags+=~/.vim/tags/cpp/tags
+
+" I like seeing the line numbers.
+set number
+
+" Stupid spelling fixes.
+iab teh the
+iab lenght length
+iab recieve receive
+iab recieving receiving
+iab recieved received
+iab recieves receives
+iab copyied copied
+iab SErver Server
+
+
+cab V view
+cab Ts ts
+cab Tag tag
+cab Res res
+
+cab grep grep
+cab Grep grep
+cab Wq wq
+cab W w
+cab Q q
+cab E e
+cab qw wq
+cab Qa qa
+cab Sp sp
+
+cab ww \(\w\+\)
+
+cab vres vert res
+
+"** Maps
+" Visual Mode Maps: only works ehn you've visually hightlighted text with v,V
+"                    or <C-V>:
+" X - Seaches for occurances of the currently visually highlighted text
+" Insertion Mode Maps:
+" <C-]>  - completes text on tagnames
+" <C-F>  - completes text on filnames
+"
+" Command Mode Maps: - includes the ':' and '/' prompts:
+" <C-L> - not only redraws the screen, but clears any highlighted text.
+"
+" Regular Maps:
+" '  - maps to the ', they do nearly identical actions anyway
+" + - increase the window by one line
+" - - decrease the window by one line
+" = - mapped to '+' because it's annoying to have to hit the <shift> key.
+vmap X y/<C-R>"<CR>
+
+noremap <C-L> :noh<C-M><C-L>
+
+"inoremap <C-]> <C-X><C-]>
+inoremap <C-F> <C-X><C-F>
+
+cnoremap <Tab> <C-L><C-D>
+
+cnoremap <C-f> <S-Right>
+cnoremap <C-b> <S-Left>
+
+map <F8> \<C-R><C-A><CR>
+
+"map ' `
+"Clear the screen - including any hightlights due to search
+noremap <C-L> :noh<C-M><C-L>
+
+map + :res +1<CR>
+map - :res -1<CR>
+map > :vert res +1<CR>
+map < :vert res -1<CR>
+
+
+" '_' maps in use:
+" b/t, c, e, E, f, g, j, m, M, n, v
+" _b/_t - move to the buttom of top window in a clumn respectively
+" _e - reindent the rest of the lines in the file (not perfect)
+" _E - Turn on or off Virtual Edit
+" _j - reindent the next line
+" _f - fol dthe buffer about the braces {,}
+" _g - search for all the occurences of a word in the current directory
+" _m - move a trailing comment block to the previous line
+" _n - vertically split the screen and open a new file in vertical split
+" _v - source this file
+" _p - turns on or off paste
+" _u/U - lower or uppercase a 'word'
+" _M - turns the mouse on or off in the console version of Vim
+
+map _a :!ack-grep "<cword>" *<CR>
+map _e _j_e
+map _j Ji<CR><ESC>
+
+map _p :set paste!<CR>:set paste?<CR>
+map _g :grep -Ii "<cword>" *<CR>
+
+map _f :syn region myFold start="{" end="}" transparent fold<CR>: syn sync fromstart<CR> :set foldmethod=syntax<CR>
+
+map _i :call LoadIDEMode()<CR>
+
+map _b <C-W>99j
+map _t <C-W>99k
+
+map _v :source ~/.vimrc<CR>
+
+"map _c :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map _c :call RerunCtagsAndCscope()<CR>
+map _S :FindFileCache .<CR>
+
+" Ctrl Shift O - Open new file in new tab.
+map <C-O> :tabnew<CR>:FindFile<CR>
+
+
+" move a trailing comment block to the previous line.
+map _m 0/\s*\/<CR>DO <ESC>hhp$xx0:noh<CR>
+
+map _n :vsp<CR><C-W><C-N><C-W>j:q<CR>
+
+nmap _M :call SetMouseOnOff()<CR>
+
+map ,i :set ic!<CR>:set ic?<CR>
+nmap ,v <C-W><C-V><C-]>
+
+
+""""""""""""""""""""""
+" airline config
+""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 1
+
+"""""""""""""""""""
+" I'm hoping this function will load up ide settings.
+"""""""""""""""""""
+function! LoadIDEMode()
+
+    let Tlist_Auto_Open = 1
+    :TlistToggle
+    
+    """"""""""""""""""""""
+    " NERDTree config
+    """"""""""""""""""""""
+    let g:nerdtree_tabs_open_on_console_startup = 1
+    :NERDTree
+
+    ":silent :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+    ":silent :FindFileCache . <CR>
+
+endfunction
+
+function! RerunCtagsAndCscope()
+    :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+    :!find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > cscope.files<CR>
+    :!cscope -q -R -b -i cscope.files<CR>
+    :cs reset<CR>
+endfunction
+
+""""""""""""""""""""""""""""
+" Syntastic c++ configs
+""""""""""""""""""""""""""""
+" On by default, turn it off for html
+let g:syntastic_mode_map = { 'mode': 'active',
+    \ 'active_filetypes': ["cpp", "h", "js", "py2", "py"],
+    \ 'passive_filetypes': [] }
+
+" Use flake8
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore="E501,E302,E261,E701,E241,E126,E127,E128,W801"'
+
+let g:syntastic_javascript_checkers = ['jshint']
+
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+"let g:syntastic_enable_balloons = 1
+
+"let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+"let g:syntastic_cpp_check_header = 1
+"let g:syntastic_cpp_remove_include_errors = 1
+
+""""""""""""""""""""""
+" taglist config
+""""""""""""""""""""""
+let Tlist_Use_Right_Window   = 1
+let Tlist_Exit_OnlyWindow = 1
+ 
+""""""""""""""""""""""
+" gitgutter config
+""""""""""""""""""""""
+nmap ,r <Plug>GitGutterRevertHunk
+nmap ,s <Plug>GitGutterStageHunk
+"
+""""""""""""""""""""""
+" OmniCppComplete Config
+""""""""""""""""""""""
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
+
+"** Functions
+"Checks if this is the only window in the colulmn in Vim (a vertial split)
+function! IsOnlyWindowInColumn()
+  let s:n = winnr()
+  :wincmd j
+  if s:n != winnr()
+      :wincmd k
+       return 0
+  endif
+  :wincmd k
+  if s:n != winnr()
+    :wincmd j
+    return 0
+  return 1
+endfunction
+
+"Makes this window the only window open in the column
+function! OnlyInColumn()
+  if IsOnlyWindowInColumn()
+    return
+  endif
+  :1wincmd x
+  :99wincmd k
+  while !IsOnlyWindowInColumn()
+    :wincmd j
+    :close
+    :wincmd k
+ endwhile
+endfunction
+
+" turns the mouse on or off in visual mode
+function! SetMouseOnOff()
+  if &mouse != 'a'
+    set mouse=a
+  else
+    set mouse=
+  end
+  set mouse
+endfunction
+
+com! Conly :call OnlyInColumn()
+
+
+" Turns the Moue on or off
+function! SwitchVirtualEdit()
+  if &virtualedit != 'all'
+    set virtualedit=all
+  else
+    set virtualedit=
+  end
+  set virtualedit?
+endfunction
+
+" Find file in current directory and edit it.
+function! Find(name)
+  let l:list=system("find . -name '".a:name."' | perl -ne 'print \"$.\\t$_\"'")
+" replace above line with below one for gvim on windows
+" let l:list=system("find . -name ".a:name." | perl -ne \"print qq{$.\\t$_}\"")
+  let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+  if l:num < 1
+    echo "'".a:name."' not found"
+    return
+  endif
+  if l:num != 1
+    echo l:list
+    let l:input=input("Which ? (CR=nothing)\n")
+    if strlen(l:input)==0
+      return
+    endif
+    if strlen(substitute(l:input, "[0-9]", "", "g"))>0
+      echo "Not a number"
+      return
+    endif
+    if l:input<1 || l:input>l:num
+      echo "Out of range"
+      return
+    endif
+    let l:line=matchstr("\n".l:list, "\n".l:input."\t[^\n]*")
+  else
+    let l:line=l:list
+  endif
+  let l:line=substitute(l:line, "^[^\t]*\t./", "", "")
+  execute ":e ".l:line
+endfunction
+command! -nargs=1 Find :call Find("<args>")
+
+
+if has("cscope")
+
+    """"""""""""" Standard cscope/vim boilerplate
+
+    " use both cscope and ctag for 'ctrl-]', ':ta', and 'vim -t'
+    set cscopetag
+
+    " check cscope for definition of a symbol before checking ctags: set to 1
+    " if you want the reverse search order.
+    set csto=0
+
+    " add any cscope database in current directory
+    if filereadable("cscope.out")
+        cs add cscope.out  
+    " else add the database pointed to by environment variable 
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+    endif
+
+    " show msg when any other cscope db added
+    set cscopeverbose  
+
+
+    """"""""""""" My cscope/vim key mappings
+    "
+    " The following maps all invoke one of the following cscope search types:
+    "
+    "   's'   symbol: find all references to the token under cursor
+    "   'g'   global: find global definition(s) of the token under cursor
+    "   'c'   calls:  find all calls to the function name under cursor
+    "   't'   text:   find all instances of the text under cursor
+    "   'e'   egrep:  egrep search for the word under cursor
+    "   'f'   file:   open the filename under cursor
+    "   'i'   includes: find files that include the filename under cursor
+    "   'd'   called: find functions that function under cursor calls
+    "
+    " Below are three sets of the maps: one set that just jumps to your
+    " search result, one that splits the existing vim window horizontally and
+    " diplays your search result in the new window, and one that does the same
+    " thing, but does a vertical split instead (vim 6 only).
+    "
+    " I've used CTRL-\ and CTRL-@ as the starting keys for these maps, as it's
+    " unlikely that you need their default mappings (CTRL-\'s default use is
+    " as part of CTRL-\ CTRL-N typemap, which basically just does the same
+    " thing as hitting 'escape': CTRL-@ doesn't seem to have any default use).
+    " If you don't like using 'CTRL-@' or CTRL-\, , you can change some or all
+    " of these maps to use other keys.  One likely candidate is 'CTRL-_'
+    " (which also maps to CTRL-/, which is easier to type).  By default it is
+    " used to switch between Hebrew and English keyboard mode.
+    "
+    " All of the maps involving the <cfile> macro use '^<cfile>$': this is so
+    " that searches over '#include <time.h>" return only references to
+    " 'time.h', and not 'sys/time.h', etc. (by default cscope will return all
+    " files that contain 'time.h' as part of their name).
+
+
+    " To do the first type of search, hit 'CTRL-\', followed by one of the
+    " cscope search types above (s,g,c,t,e,f,i,d).  The result of your cscope
+    " search will be displayed in the current window.  You can use CTRL-T to
+    " go back to where you were before the search.  
+    "
+
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>	
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>	
+
+
+    " Using 'CTRL-spacebar' (intepreted as CTRL-@ by vim) then a search type
+    " makes the vim window split horizontally, with search result displayed in
+    " the new window.
+    "
+    " (Note: earlier versions of vim may not have the :scs command, but it
+    " can be simulated roughly via:
+    "    nmap <C-@>s <C-W><C-S> :cs find s <C-R>=expand("<cword>")<CR><CR>	
+
+    nmap <C-@>s :scs find s <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-@>g :scs find g <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-@>c :scs find c <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-@>t :scs find t <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-@>e :scs find e <C-R>=expand("<cword>")<CR><CR>	
+    nmap <C-@>f :scs find f <C-R>=expand("<cfile>")<CR><CR>	
+    nmap <C-@>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
+    nmap <C-@>d :scs find d <C-R>=expand("<cword>")<CR><CR>	
+
+
+    " Hitting CTRL-space *twice* before the search type does a vertical 
+    " split instead of a horizontal one (vim 6 and up only)
+    "
+    " (Note: you may wish to put a 'set splitright' in your .vimrc
+    " if you prefer the new window on the right instead of the left
+
+    nmap <C-@><C-@>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-@><C-@>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>	
+    nmap <C-@><C-@>i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>	
+    nmap <C-@><C-@>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+
+
+    """"""""""""" key map timeouts
+    "
+    " By default Vim will only wait 1 second for each keystroke in a mapping.
+    " You may find that too short with the above typemaps.  If so, you should
+    " either turn off mapping timeouts via 'notimeout'.
+    "
+    "set notimeout 
+    "
+    " Or, you can keep timeouts, by uncommenting the timeoutlen line below,
+    " with your own personal favorite value (in milliseconds):
+    "
+    "set timeoutlen=4000
+    "
+    " Either way, since mapping timeout settings by default also set the
+    " timeouts for multicharacter 'keys codes' (like <F1>), you should also
+    " set ttimeout and ttimeoutlen: otherwise, you will experience strange
+    " delays as vim waits for a keystroke after you hit ESC (it will be
+    " waiting to see if the ESC is actually part of a key code like <F1>).
+    "
+    "set ttimeout 
+    "
+    " personally, I find a tenth of a second to work well for key code
+    " timeouts. If you experience problems and have a slow terminal or network
+    " connection, set it higher.  If you don't set ttimeoutlen, the value for
+    " timeoutlent (default: 1000 = 1 second, which is sluggish) is used.
+    "
+    "set ttimeoutlen=100
+
+endif
