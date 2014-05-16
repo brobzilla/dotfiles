@@ -1,12 +1,4 @@
-#!/bin/sh
-if [ "$(uname)" == "Darwin" ]; then
-	do_mac
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # Do something under Linux platform
-elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-    # Do something under Windows NT platform
-fi
-
+#!/bin/bash
 do_mac() {
 	if test ! $(which rbenv)
 	then
@@ -20,3 +12,16 @@ do_mac() {
 	  brew install ruby-build > /tmp/ruby-build-install.log
 	fi
 }
+
+do_linux() 
+{ 
+	echo "Nothing for linux"
+}
+
+if [ "$(uname)" == "Darwin" ]; then
+	do_mac
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+	do_linux
+fi
+
+
