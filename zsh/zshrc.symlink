@@ -1,5 +1,6 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.oh-my-zsh
+export DOTFILES=$HOME/.dotfiles
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -60,17 +61,19 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+config_files=($DOTFILES/**/*.zsh)
 
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
 do
+	echo $file
   source $file
 done
 
 # load everything but the path and completion files
 for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
 do
+	echo $file
   source $file
 done
 
@@ -81,6 +84,7 @@ compinit
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
 do
+	echo $file
   source $file
 done
 
