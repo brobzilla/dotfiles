@@ -25,3 +25,6 @@
 [submodule "vim/vim.symlink/bundle/vim-nerdtree-tabs"]
 	path = vim/vim.symlink/bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "vim/vim.symlink/bundle/vim-findfile"]
+	path = vim/vim.symlink/bundle/vim-findfile
+	url = git@hastebin.videon-central.net:rkennedy/vim-findfile.git
