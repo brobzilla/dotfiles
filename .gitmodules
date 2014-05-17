@@ -7,3 +7,6 @@
 [submodule "vim/vim.symlink/bundle/syntastic"]
 	path = vim/vim.symlink/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "vim/vim.symlink/bundle/taglist.vim"]
+	path = vim/vim.symlink/bundle/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim.git
