@@ -27,7 +27,7 @@
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "vim/vim.symlink/bundle/vim-findfile"]
 	path = vim/vim.symlink/bundle/vim-findfile
-	url = git@hastebin.videon-central.net:rkennedy/vim-findfile.git
+	url = http://hastebin.videon-central.net:8181/rkennedy/vim-findfile.git
 [submodule "vim/vim.symlink/bundle/OmniCppComplete"]
 	path = vim/vim.symlink/bundle/OmniCppComplete
 	url = https://github.com/vim-scripts/OmniCppComplete.git
