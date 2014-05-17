@@ -4,3 +4,6 @@
 [submodule "vim/vim.symlink/bundle/autoload_cscope.vim"]
 	path = vim/vim.symlink/bundle/autoload_cscope.vim
 	url = https://github.com/vim-scripts/autoload_cscope.vim.git
+[submodule "vim/vim.symlink/bundle/syntastic"]
+	path = vim/vim.symlink/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
