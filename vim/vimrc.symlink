@@ -68,6 +68,9 @@ au BufRead,BufNewFile Makefile*,*.mk set noexpandtab
 "Use the below hightlight group when displaying bad whitespace is desired
 highlight BadWhitespace ctermbg=red guibg=red
 
+" For the same appearance as your line number column
+highlight clear signColumn
+
 "Display tabs at the beginning of a line in python mode as bad
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.hh,*.hh,*.cc,*.cpp,*.hpp,*.java match BadWhitespace /^\t\+/
 "Display whitespace at end of lines as bad 
