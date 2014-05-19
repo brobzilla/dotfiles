@@ -12,7 +12,7 @@ echo "Old link removed"
 echo ""
 echo ""
 echo "Create new link"
-ln -v -s $1/ti/targetfs ~/nfsroot/targetfs
+ln -v -s $1/projects/xorn/targetfs ~/nfsroot/targetfs
 echo "New link created"
 echo ""
 echo "Create new link"
