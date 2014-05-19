@@ -1,3 +1,6 @@
 .DS_Store
 *~
 *.swp
+.syntastic_cpp_config
+cscope.*
+tags
