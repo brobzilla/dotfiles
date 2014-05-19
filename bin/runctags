@@ -1,9 +1,20 @@
-#! /bin/bash
-$1
-ctags -R --c++-kinds=+p --fields=+iaS --extra=+q $1
-find $1 -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > $1/cscope.files
-cscope -q -R -b -i $1/cscope.files
+#!/usr/bin/env bash
 
-echo "-I../ti/toolchain/sasken/env/sasken/inc" > $1/.syntastic_cpp_config
-echo "" >> $1/.syntastic_cpp_config
-find $1 -name "*.h" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> $1/.syntastic_cpp_config
+set -o pipefail
+set -o errexit
+# set -o xtrace
+
+__DIR__="$(cd "$(dirname "${0}")"; echo $(pwd))"
+__BASE__="$(basename "${0}")"
+__FILE__="${__DIR__}/${__BASE__}"
+
+ARG1="${1:-${PWD}}"
+
+set -o nounset
+ctags -R --c++-kinds=+p --fields=+iaS --extra=+q $ARG1
+find ${ARG1}/ -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > ${ARG1}/cscope.files
+cscope -q -R -b -i ${ARG1}/cscope.files
+
+echo "-I../projects/xorn/toolchain/sasken/env/sasken/inc" > ${ARG1}/.syntastic_cpp_config
+echo "" >> ${ARG1}/.syntastic_cpp_config
+find ${ARG1}/ -name "*.h" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> ${ARG1}/.syntastic_cpp_config
