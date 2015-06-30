@@ -16,5 +16,8 @@ find ${ARG1}/ -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" > ${A
 cscope -q -R -b -i ${ARG1}/cscope.files
 
 echo "-I../projects/xorn/toolchain/sasken/env/sasken/inc" > ${ARG1}/.syntastic_cpp_config
-echo "" >> ${ARG1}/.syntastic_cpp_config
+#echo "" >> ${ARG1}/.syntastic_cpp_config
 find ${ARG1}/ -name "*.h" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> ${ARG1}/.syntastic_cpp_config
+find ${ARG1}/ -name "*.hpp" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> ${ARG1}/.syntastic_cpp_config
+find ${ARG1}/../projects/fire/targetfs/. -name "*.h" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> ${ARG1}/.syntastic_cpp_config
+find ${ARG1}/../projects/fire/targetfs/. -name "*.hpp" -exec dirname {} \; | sort | uniq | sed -e 's/^/-I/' >> ${ARG1}/.syntastic_cpp_config

@@ -13,6 +13,7 @@ filetype plugin indent on
 "** Settings
 if has("gui_running")
   set guioptions-=T
+  colorscheme jellybeans
 endif
 set laststatus=2 "keeps status line up
 set winminheight=0 " allows me to shirnk the window to no size
@@ -23,6 +24,7 @@ if (version >= 600 )
 endif
 
 syntax enable
+set nowrap
 "set background=dark
 "colorscheme solarized
 "colorscheme robLight
@@ -208,8 +210,8 @@ map _v :source ~/.vimrc<CR>
 map _c :call RerunCtagsAndCscope()<CR>
 map _S :FindFileCache .<CR>
 
-" Ctrl Shift O - Open new file in new tab.
-map <C-O> :tabnew<CR>:FindFile<CR>
+" Ctrl Shift N - Open new file in new tab.
+map <C-N> :tabnew<CR>:FindFile<CR>
 
 
 " move a trailing comment block to the previous line.
@@ -255,12 +257,18 @@ function! RerunCtagsAndCscope()
 endfunction
 
 """"""""""""""""""""""""""""
+" additional vim c++ syntax highlighting
+""""""""""""""""""""""""""""
+" Highlighting of class scope if disabled by default. To enable set
+let g:cpp_class_scope_highlight = 1
+
+""""""""""""""""""""""""""""
 " Syntastic c++ configs
 """"""""""""""""""""""""""""
 " On by default, turn it off for html
 let g:syntastic_mode_map = { 'mode': 'active',
-    \ 'active_filetypes': ["cpp", "h", "js", "py2", "py"],
-    \ 'passive_filetypes': [] }
+    \ 'active_filetypes': ["js", "py2", "py"],
+    \ 'passive_filetypes': ["cpp", "h"] }
 
 " Use flake8
 let g:syntastic_python_checkers = ['flake8']
@@ -290,6 +298,9 @@ let Tlist_Exit_OnlyWindow = 1
 """"""""""""""""""""""
 nmap ,r <Plug>GitGutterRevertHunk
 nmap ,s <Plug>GitGutterStageHunk
+:menu Git.RevertHunk ,r<CR>
+:menu Git.StageHunk ,s<CR>
+
 "
 """"""""""""""""""""""
 " OmniCppComplete Config

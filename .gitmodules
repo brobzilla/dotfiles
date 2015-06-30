@@ -31,3 +31,6 @@
 [submodule "vim/vim.symlink/bundle/vim-findfile"]
 	path = vim/vim.symlink/bundle/vim-findfile
 	url = http://gitlab.videon-central.net/rkennedy/vim-findfile.git
+[submodule "vim/vim.symlink/bundle/syntax"]
+	path = vim/vim.symlink/bundle/syntax
+	url = https://github.com/octol/vim-cpp-enhanced-highlight.git

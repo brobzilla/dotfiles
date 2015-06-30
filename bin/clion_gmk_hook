@@ -14,7 +14,19 @@ def get_toolchains():
     return [f for f in listdir(tc_dir) if isfile(join(tc_dir,f))]
 
 def get_current_proj():
+    proj = get_pwd().split("/")[-2]
+
+    # Intel checkout doesn't match toolchain name.
+    if 'intel' in proj:
+        return 'intel'
     return get_pwd().split("/")[-2]
+
+def get_current_proj_flag():
+    # Intel toolchain doesn't match COMPILE_ flag name.
+    if get_current_proj() is 'intel':
+        return 'zambezi'
+    else:
+        return get_current_proj()
 
 def get_current_toolchain():
     for toolchain in get_toolchains():
@@ -26,7 +38,7 @@ def get_current_toolchain_contents():
 
 def get_injection_text():
     # proj setting
-    injection = "set(COMPILE_" + get_current_proj().upper() + " yes)\n"
+    injection = "set(COMPILE_" + get_current_proj_flag().upper() + " yes)\n"
 
     build_root = os.path.abspath(get_pwd() + "/../projects/" + get_current_proj())
     injection += "set(BUILD_ROOT " + build_root + ")\n"
