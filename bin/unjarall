@@ -1,0 +1,10 @@
+for jar in `ls`
+do
+        extension=`echo $jar | cut -d'.' -f2` 
+        if [ "$extension" = "jar" ]
+        then
+                new_dir=`echo $jar | cut -d'.' -f1` 
+                mkdir $new_dir
+                unzip $jar -d $new_dir
+        fi
+done
