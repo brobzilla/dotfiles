@@ -1,1 +1,1 @@
-export PATH=${PATH}:/Applications/Android\ Studio.app/sdk/tools:/Applications/Android\ Studio.app/sdk/platform-tools
+export PATH=${PATH}:/Users/rkennedy/Library/Android/sdk/platform-tools
