@@ -16,7 +16,8 @@
 	br = branch
 	unstage = reset HEAD --
 	#purify = !git clean -f -- && git checkout -f --
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --no-merges
+	lm = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative 
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 	upsub = submodule update --init --recursive
 
@@ -30,11 +31,17 @@
 
 
 [merge]
-	#tool = opendiff
-	tool = meld
+	tool = p4merge
+[mergetool]
+	prompt = false
+[mergetool "p4merge"]
+	cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+	
 [diff]
-	#tool = opendiff
-	tool = meld
+	tool = p4merge
 [color]
 	ui = auto
 [core]
@@ -48,3 +55,5 @@
 
 [push]
 	default = simple
+[rerere]
+	enabled = false
