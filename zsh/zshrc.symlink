@@ -102,3 +102,5 @@ done
 
 unset config_files
 unset work_config_files
+
+antigen bundle zsh-users/zsh-syntax-highlighting
