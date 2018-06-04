@@ -4,3 +4,9 @@
 .syntastic_cpp_config
 cscope.*
 tags
+.osync_workdir/
+.cproject
+.project
+.settings
+.idea
+.externalToolBuilders/
