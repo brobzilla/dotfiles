@@ -4,10 +4,10 @@ set incsearch " while typing a search vim shows me the next match.
 
 nnoremap <Space>v :source ~/.ideavimrc<CR>
 
-nnoremap <Space>/ :action FindInPath<CR>
-nnoremap / :action Find<CR>
-nnoremap n :action FindNext<CR>
-nnoremap N :action FindPrevious<CR>
+"nnoremap <Space>/ :action FindInPath<CR>
+"nnoremap / :action Find<CR>
+"nnoremap n :action FindNext<CR>
+"nnoremap N :action FindPrevious<CR>
 nnoremap <Space>o :action GotoClass<CR>
 nnoremap <Space>O :action GotoFile<CR>
 nnoremap <Space>d :action CloseContent<CR>

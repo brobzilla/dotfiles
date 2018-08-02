@@ -98,10 +98,6 @@ set display=lastline
 " Shows the command as you type
 set showcmd
 
-" Kinda hardcoded for player team.
-set tags+=/home/rkennedy/xorn/player/tags
-set tags+=~/.vim/tags/cpp/tags
-
 " I like seeing the line numbers.
 set number
 
